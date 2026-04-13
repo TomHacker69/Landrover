@@ -149,16 +149,7 @@ Create /etc/nginx/sites-available/landuse:
 nginx
    server {
        listen 80;
-       server_name your-domain.com;
-
-       location / {
-           proxy_pass http://127.0.0.1:8000;
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-       }
-
-       client_max_body_size 20M;
-   }
+       server_name your-domain.com;}
 Enable site:
 
 bash
