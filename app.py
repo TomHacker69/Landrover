@@ -7,8 +7,17 @@ from werkzeug.utils import secure_filename
 import uuid
 from datetime import datetime
 
+
+
+
+
 # Initialize Flask application
 app = Flask(__name__)
+
+
+
+
+
 
 # Configuration
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -16,9 +25,18 @@ app.config['RESULT_FOLDER'] = 'static/results'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'tif', 'tiff'}
 
+
+
+
+
 # Create necessary directories if they don't exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['RESULT_FOLDER'], exist_ok=True)
+
+
+
+
+
 
 
 def allowed_file(filename):
@@ -33,6 +51,9 @@ def allowed_file(filename):
     """
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
+
+
 
 
 def process_images(old_image_path, new_image_path):
@@ -143,6 +164,13 @@ def process_images(old_image_path, new_image_path):
         return None, 0, "Error", f"Error processing images: {str(e)}"
 
 
+
+
+
+
+
+
+
 @app.route('/')
 def index():
     """
@@ -152,6 +180,11 @@ def index():
         HTML template for the main page
     """
     return render_template('index.html')
+
+
+
+
+
 
 
 @app.route('/detect-change', methods=['POST'])
@@ -236,6 +269,12 @@ def detect_change():
         }), 500
 
 
+
+
+
+
+
+
 @app.errorhandler(413)
 def request_entity_too_large(error):
     """
@@ -248,6 +287,12 @@ def request_entity_too_large(error):
         'success': False,
         'error': 'File size exceeds the maximum limit of 16MB.'
     }), 413
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
